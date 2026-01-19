@@ -1,3 +1,3 @@
 ## 🎥 Demo Video
 
-[![Watch the video](cover.png)](./samaStar.mp4)
+[![Sama Star Demo](cover.png)](./samaStar.mp4)
