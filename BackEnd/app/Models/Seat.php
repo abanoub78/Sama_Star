@@ -24,4 +24,9 @@ class Seat extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function bookingForTrip($tripId)
+{
+    return $this->hasOne(Booking::class)->where('trip_id', $tripId);
+}
 }
