@@ -1,0 +1,97 @@
+<h2 class="page-title">🗺 Routes</h2>
+
+<div class="add-form">
+  <mat-form-field appearance="fill">
+    <mat-label>From City</mat-label>
+    <mat-select [(ngModel)]="newRoute.from_city_id">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>To City</mat-label>
+    <mat-select [(ngModel)]="newRoute.to_city_id">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Distance (km)</mat-label>
+    <input matInput type="number" [(ngModel)]="newRoute.distance_km" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="addRoute()">Add Route</button>
+</div>
+
+<hr />
+
+<table mat-table [dataSource]="routes" class="mat-elevation-z8" style="width: 100%">
+  <!-- From City -->
+  <ng-container matColumnDef="from_city">
+    <th mat-header-cell *matHeaderCellDef>From City</th>
+    <td mat-cell *matCellDef="let route">
+      <ng-container *ngIf="editingRoute?.id !== route.id; else editFrom">
+        {{ getCityName(route.from_city_id) }}
+      </ng-container>
+      <ng-template #editFrom>
+        <mat-form-field *ngIf="editingRoute">
+          <mat-select [(ngModel)]="editingRoute.from_city_id">
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- To City -->
+  <ng-container matColumnDef="to_city">
+    <th mat-header-cell *matHeaderCellDef>To City</th>
+    <td mat-cell *matCellDef="let route">
+      <ng-container *ngIf="editingRoute?.id !== route.id; else editTo">
+        {{ getCityName(route.to_city_id) }}
+      </ng-container>
+      <ng-template #editTo>
+        <mat-form-field *ngIf="editingRoute">
+          <mat-select [(ngModel)]="editingRoute.to_city_id">
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Distance -->
+  <ng-container matColumnDef="distance_km">
+    <th mat-header-cell *matHeaderCellDef>Distance (km)</th>
+    <td mat-cell *matCellDef="let route">
+      <ng-container *ngIf="editingRoute?.id !== route.id; else editDistance">
+        {{ route.distance_km }}
+      </ng-container>
+      <ng-template #editDistance>
+        <mat-form-field *ngIf="editingRoute">
+          <input matInput type="number" [(ngModel)]="editingRoute.distance_km" />
+        </mat-form-field>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let route">
+      <ng-container *ngIf="editingRoute?.id !== route.id">
+        <button mat-button color="accent" (click)="startEdit(route)">Edit</button>
+        <button mat-button color="warn" (click)="deleteRoute(route.id)">Delete</button>
+      </ng-container>
+      <ng-container *ngIf="editingRoute?.id === route.id">
+        <button mat-button color="primary" (click)="saveEdit()">Save</button>
+        <button mat-button (click)="cancelEdit()">Cancel</button>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<p *ngIf="!routes.length" class="empty-state">No routes added yet 🗺</p>

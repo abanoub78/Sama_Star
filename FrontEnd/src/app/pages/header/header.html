@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/logo.png" alt="GoBus Logo" width="120" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">عن سما ستار </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/stations">المحطات </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">الصفحة الرئيسية</a>
+        </li>
+
+        <!-- Auth Buttons -->
+        <li class="nav-item ms-3" *ngIf="!auth.isLoggedIn()">
+          <a class="nav-link text-danger" routerLink="/register">
+            <i class="bi bi-box-arrow-in-right me-1"></i> تسجيل الدخول
+          </a>
+        </li>
+
+        <li class="nav-item dropdown ms-3" *ngIf="auth.isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            مرحبًا، {{ auth.user?.name || 'مستخدم' }}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/profile">الصفحة الشخصية</a></li>
+            <li><a class="dropdown-item" routerLink="/mybookings">حجوزاتي</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" (click)="logout()">تسجيل الخروج</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

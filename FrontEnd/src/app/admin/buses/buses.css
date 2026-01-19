@@ -1,0 +1,153 @@
+/* Page Title */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1976d2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideDown 0.6s ease;
+}
+
+/* Add Form */
+.add-form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.add-form input {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  flex: 1;
+  min-width: 150px;
+  transition: all 0.3s ease;
+}
+
+.add-form input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
+}
+
+.add-form button {
+  height: 42px;
+  border-radius: 12px;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.buses-table {
+  width: 100%;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+}
+
+.buses-table th {
+  font-weight: 600;
+  color: #1976d2;
+  text-align: left;
+  padding: 12px;
+}
+
+.buses-table td {
+  padding: 12px;
+  color: #333;
+}
+
+/* Row Hover */
+.table-row {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.table-row:hover {
+  background: #f1f7ff;
+  transform: scale(1.01);
+}
+
+/* Buttons */
+button[mat-stroked-button] {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Empty State */
+.empty-state {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  animation: fadeIn 0.6s ease;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-form {
+    flex-direction: column;
+  }
+}
+.bus-type-cell {
+  min-width: 140px;
+}
+
+/* Badge */
+.bus-type-badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+/* VIP */
+.bus-type-badge.vip {
+  background: linear-gradient(135deg, #7b1fa2, #ba68c8);
+  color: #fff;
+}
+
+/* Economy */
+.bus-type-badge.economy {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color: #fff;
+}
+
+/* Select field */
+.bus-type-field {
+  width: 140px;
+}
+.bustype {
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #ccc;
+}

@@ -1,0 +1,140 @@
+<h2 class="page-title">🛣 Trips</h2>
+
+<!-- Add Trip Form -->
+<div class="add-form">
+  <select [(ngModel)]="newTrip.route_id">
+    <option [ngValue]="null" disabled>اختر المسار</option>
+    <option *ngFor="let route of routes" [ngValue]="route.id">
+      {{ route.from_city?.name }} ⬅️ {{ route.to_city?.name }}
+    </option>
+  </select>
+
+  <select [(ngModel)]="newTrip.bus_id">
+    <option [ngValue]="null" disabled>اختر الحافلة</option>
+    <option *ngFor="let bus of buses" [ngValue]="bus.id">
+      {{ bus.bus_number }} ({{ bus.bus_type }})
+    </option>
+  </select>
+
+  <select [(ngModel)]="newTrip.driver_id">
+    <option [ngValue]="null" disabled>اختر السائق</option>
+    <option *ngFor="let driver of drivers" [ngValue]="driver.id">
+      {{ driver.name }}
+    </option>
+  </select>
+
+  <input type="date" [(ngModel)]="newTrip.trip_date" />
+  <input type="time" [(ngModel)]="newTrip.departure_time" />
+  <input type="time" [(ngModel)]="newTrip.arrival_time" />
+  <input type="number" placeholder="السعر" [(ngModel)]="newTrip.price" />
+
+  <button mat-raised-button color="primary" (click)="addTrip()">Add Trip</button>
+</div>
+
+<!-- Table -->
+<div class="table-wrapper">
+  <table mat-table [dataSource]="trips" class="mat-elevation-z8">
+    <!-- Route -->
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef>Route</th>
+      <td mat-cell *matCellDef="let trip">
+        <ng-container *ngIf="editingTrip?.id !== trip.id; else editRoute">
+          {{ trip.route?.from_city?.name }} ⬅️ {{ trip.route?.to_city?.name }}
+        </ng-container>
+
+        <ng-template #editRoute>
+          <select [(ngModel)]="editingTrip.route_id">
+            <option *ngFor="let route of routes" [ngValue]="route.id">
+              {{ route.from_city?.name }} ⬅️ {{ route.to_city?.name }}
+            </option>
+          </select>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Bus -->
+    <ng-container matColumnDef="bus">
+      <th mat-header-cell *matHeaderCellDef>Bus</th>
+      <td mat-cell *matCellDef="let trip">
+        <ng-container *ngIf="editingTrip?.id !== trip.id; else editBus">
+          {{ trip.bus?.bus_number }} ({{ trip.bus?.bus_type }})
+        </ng-container>
+
+        <ng-template #editBus>
+          <select [(ngModel)]="editingTrip.bus_id">
+            <option *ngFor="let bus of buses" [ngValue]="bus.id">
+              {{ bus.bus_number }} ({{ bus.bus_type }})
+            </option>
+          </select>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Driver -->
+    <ng-container matColumnDef="driver">
+      <th mat-header-cell *matHeaderCellDef>Driver</th>
+      <td mat-cell *matCellDef="let trip">
+        <ng-container *ngIf="editingTrip?.id !== trip.id; else editDriver">
+          {{ trip.driver?.name }}
+        </ng-container>
+
+        <ng-template #editDriver>
+          <select [(ngModel)]="editingTrip.driver_id">
+            <option *ngFor="let driver of drivers" [ngValue]="driver.id">
+              {{ driver.name }}
+            </option>
+          </select>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Date -->
+    <ng-container matColumnDef="trip_date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let trip">
+        <input
+          *ngIf="editingTrip?.id === trip.id; else viewDate"
+          type="date"
+          [(ngModel)]="editingTrip.trip_date"
+        />
+        <ng-template #viewDate>
+          {{ trip.trip_date | date : 'mediumDate' }}
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Price -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let trip">
+        <input
+          *ngIf="editingTrip?.id === trip.id; else viewPrice"
+          type="number"
+          [(ngModel)]="editingTrip.price"
+        />
+        <ng-template #viewPrice> {{ trip.price }} EGP </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let trip">
+        <ng-container *ngIf="editingTrip?.id !== trip.id">
+          <button mat-stroked-button color="primary" (click)="startEdit(trip)">Edit</button>
+          <button mat-stroked-button color="warn" (click)="deleteTrip(trip.id)">Delete</button>
+        </ng-container>
+
+        <ng-container *ngIf="editingTrip?.id === trip.id">
+          <button mat-stroked-button color="accent" (click)="saveEdit()">Save</button>
+          <button mat-stroked-button (click)="cancelEdit()">Cancel</button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<p *ngIf="!trips.length" class="empty-state">No trips added yet 🛣</p>

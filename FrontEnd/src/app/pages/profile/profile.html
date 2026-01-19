@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <h2 class="title">الملف الشخصي</h2>
+
+  <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="profile-form">
+    <!-- صورة البروفايل -->
+    <div class="avatar-wrapper">
+      <img [src]="previewImage || 'assets/user.avif'" alt="Profile Image" class="profile-img" />
+
+      <label class="camera-btn">
+        📷
+        <input type="file" hidden (change)="onImageChange($event)" />
+      </label>
+    </div>
+
+    <!-- الاسم -->
+    <div class="form-group floating">
+      <input type="text" required [(ngModel)]="profileData.name" name="name" />
+      <label>الاسم الكامل</label>
+    </div>
+
+    <!-- الهاتف -->
+    <div class="form-group floating">
+      <input type="tel" required [(ngModel)]="profileData.phone" name="phone" />
+      <label>رقم الهاتف</label>
+    </div>
+
+    <!-- كلمة المرور -->
+    <div class="form-group floating">
+      <input type="password" [(ngModel)]="profileData.password" name="password" />
+      <label>كلمة المرور (اختياري)</label>
+    </div>
+
+    <button type="submit" class="btn-save" [disabled]="loading">
+      <span *ngIf="!loading">💾 حفظ التغييرات</span>
+      <span *ngIf="loading">⏳ جاري الحفظ...</span>
+    </button>
+  </form>
+
+  <!-- Popup -->
+  <div class="popup" *ngIf="showPopup" [ngClass]="popupType">
+    {{ popupMessage }}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="overlay" *ngIf="success !== null">
+  <div class="popup success" *ngIf="success">
+    <h2>✅ Payment Successful</h2>
+    <p>تم الدفع بنجاح</p>
+    <p>سيتم الرجوع للصفحة الحجزات خاصه بك ...</p>
+  </div>
+
+  <div class="popup error" *ngIf="!success">
+    <h2>❌ Payment Failed</h2>
+    <p>فشل الدفع، حاول مرة أخرى</p>
+    <button routerLink="/">العودة للرئيسية</button>
+  </div>
+</div>

@@ -1,0 +1,158 @@
+<!-- Popup Message -->
+<div class="popup" *ngIf="showPopup" [ngClass]="popupType">
+  {{ popupMessage }}
+</div>
+
+<!-- Card -->
+<div class="auth-container">
+  <div class="auth-card-wrapper">
+    <div class="auth-card">
+      <!-- Logo -->
+      <div class="text-center mb-4">
+        <h1 class="logo">سما ستار</h1>
+        <p class="logo-subtitle">رحلات مريحة وآمنة في جميع أنحاء مصر</p>
+      </div>
+
+      <!-- Toggle -->
+      <div class="toggle-buttons mb-4">
+        <button class="toggle-btn" [class.active]="isLogin" (click)="isLogin = true">
+          تسجيل الدخول
+        </button>
+        <button class="toggle-btn" [class.active]="!isLogin" (click)="isLogin = false">
+          تسجيل جديد
+        </button>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="loading" class="loading-spinner text-center mb-3">
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Login Form -->
+      <form *ngIf="isLogin" #loginForm="ngForm" class="auth-form" (ngSubmit)="onSubmit(loginForm)">
+        <div class="form-group">
+          <label>البريد الإلكتروني *</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="loginData.email"
+            required
+            class="form-control"
+          />
+          <small class="text-danger" *ngIf="loginForm.submitted && !loginData.email"
+            >هذا الحقل مطلوب</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label>كلمة المرور *</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="loginData.password"
+            required
+            class="form-control"
+          />
+          <small class="text-danger" *ngIf="loginForm.submitted && !loginData.password"
+            >هذا الحقل مطلوب</small
+          >
+
+          <div class="options d-flex justify-content-between mt-2">
+            <label class="form-check-label"><input type="checkbox" /> تذكرني</label>
+            <a href="#" class="forgot-link">نسيت كلمة المرور؟</a>
+          </div>
+        </div>
+
+        <button class="btn-submit" [disabled]="loading">تسجيل الدخول</button>
+      </form>
+
+      <!-- Register Form -->
+      <form
+        *ngIf="!isLogin"
+        #regForm="ngForm"
+        class="auth-form register-form"
+        (ngSubmit)="onSubmit(regForm)"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم الكامل *</label>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="registerData.name"
+              required
+              class="form-control"
+            />
+            <small class="text-danger" *ngIf="regForm.submitted && !registerData.name"
+              >هذا الحقل مطلوب</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label>رقم الهاتف *</label>
+            <input
+              type="tel"
+              name="phone"
+              [(ngModel)]="registerData.phone"
+              required
+              class="form-control"
+            />
+            <small class="text-danger" *ngIf="regForm.submitted && !registerData.phone"
+              >هذا الحقل مطلوب</small
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>البريد الإلكتروني *</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="registerData.email"
+            required
+            class="form-control"
+          />
+          <small class="text-danger" *ngIf="regForm.submitted && !registerData.email"
+            >هذا الحقل مطلوب</small
+          >
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>كلمة المرور *</label>
+            <input
+              type="password"
+              name="password"
+              [(ngModel)]="registerData.password"
+              required
+              class="form-control"
+            />
+            <small class="text-danger" *ngIf="regForm.submitted && !registerData.password"
+              >هذا الحقل مطلوب</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label>تأكيد كلمة المرور *</label>
+            <input
+              type="password"
+              name="password_confirmation"
+              [(ngModel)]="registerData.password_confirmation"
+              required
+              class="form-control"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                regForm.submitted && registerData.password !== registerData.password_confirmation
+              "
+              >كلمة المرور وتأكيدها غير متطابقين</small
+            >
+          </div>
+        </div>
+
+        <button class="btn-submit" [disabled]="loading">إنشاء حساب</button>
+      </form>
+    </div>
+  </div>
+</div>

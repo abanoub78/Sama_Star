@@ -1,0 +1,62 @@
+<div class="bus-container">
+  <h1 class="header">Bus Seat Reservation</h1>
+
+  <div *ngIf="loading">Loading seats...</div>
+
+  <div class="bus-layout" *ngIf="!loading">
+    <div class="driver-area">
+      <div class="steering-wheel"></div>
+    </div>
+
+    <div class="seat-row" *ngFor="let row of seatRows; let i = index">
+      <!-- Left seats -->
+      <div
+        class="seat"
+        *ngFor="let seat of row.left"
+        [ngClass]="seat.status"
+        (click)="toggleSeat(seat)"
+      >
+        {{ seat.seat_number }}
+      </div>
+
+      <!-- Aisle -->
+      <div class="aisle"></div>
+
+      <!-- Right seats -->
+      <div
+        class="seat"
+        *ngFor="let seat of row.right"
+        [ngClass]="seat.status"
+        (click)="toggleSeat(seat)"
+      >
+        {{ seat.seat_number }}
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" *ngIf="!loading">
+    <button class="btn btn-primary" (click)="reserveSelectedSeats()">Reserve</button>
+    <button class="btn btn-warning" (click)="cancelSelection()">Cancel</button>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color empty"></div>
+      <span>Available</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color reserved"></div>
+      <span>Reserved</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color selected"></div>
+      <span>Selected</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color disabled"></div>
+      <span>Disabled</span>
+    </div>
+  </div>
+
+  <div class="status" id="status-message">Select seats to reserve</div>
+</div>

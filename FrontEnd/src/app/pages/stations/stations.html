@@ -1,0 +1,53 @@
+<div class="page" [attr.dir]="dir">
+  <header class="page-header">
+    <h1 class="title">المحطات</h1>
+  </header>
+
+  <div class="content">
+    <!-- Right: Accordion list -->
+    <aside class="list-panel" aria-label="قائمة المدن والمحطات">
+      <div class="accordion">
+        <div
+          class="accordion-item"
+          *ngFor="let group of cityGroups; let i = index"
+          [class.expanded]="group.expanded"
+        >
+          <button
+            class="accordion-header"
+            (click)="toggleGroup(group)"
+            aria-expanded="{{ group.expanded ? 'true' : 'false' }}"
+          >
+            <div class="header-text">
+              <span class="city-title">{{ group.title }}</span>
+              <span class="city-subtitle" *ngIf="group.subtitle">{{ group.subtitle }}</span>
+            </div>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+
+          <div class="accordion-body" *ngIf="group.expanded">
+            <ng-container *ngIf="group.stations.length > 0; else noStations">
+              <div class="station" *ngFor="let station of group.stations">
+                <div class="station-info">
+                  <span class="station-name">{{ station.name }}</span>
+                  <span class="station-address" *ngIf="station.address">{{ station.address }}</span>
+                </div>
+                <button class="btn btn-directions" (click)="openDirections(station)">
+                  الاتجاهات
+                </button>
+              </div>
+            </ng-container>
+            <ng-template #noStations>
+              <div class="empty">لا توجد محطات متاحة حالياً في هذا القسم.</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <!-- Left: Map panel -->
+    <section class="map-panel" aria-label="خريطة">
+      <div class="map-container">
+        <img src="assets/ss2.jpg" alt=" توضح مواقع المحطات" />
+      </div>
+    </section>
+  </div>
+</div>

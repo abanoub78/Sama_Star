@@ -1,0 +1,14 @@
+<section class="features-circle" dir="rtl">
+  <div class="circle-wrapper">
+    <div class="circle-rotator">
+      <div class="feature-card" *ngFor="let f of features; let i = index" [style.--i]="i">
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.description }}</p>
+      </div>
+    </div>
+
+    <div class="center-image">
+      <img src="assets/bus.png" alt="Blue Bus" />
+    </div>
+  </div>
+</section>

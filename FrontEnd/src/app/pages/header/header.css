@@ -1,0 +1,28 @@
+a {
+  cursor: pointer;
+}
+.navbar {
+  padding: 1rem 0;
+  border-bottom: 2px solid #f57c00;
+
+  .navbar-brand img {
+    height: 40px;
+  }
+
+  .nav-link {
+    font-weight: 600;
+    color: #333;
+    transition: all 0.3s ease;
+
+    &:hover,
+    &.active {
+      color: #f57c00;
+      border-bottom: 2px solid #f57c00;
+    }
+  }
+
+  .text-danger {
+    color: #d32f2f !important;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,9 @@
+# تجاهل ملفات Angular cache
+FrontEnd/.angular/cache/
+
+# تجاهل node_modules
+FrontEnd/node_modules/
+
+# تجاهل ملفات ال IDE
+FrontEnd/.vscode/
+*.log

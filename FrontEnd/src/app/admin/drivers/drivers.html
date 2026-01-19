@@ -1,0 +1,62 @@
+<h2 class="page-title">Drivers</h2>
+
+<!-- Add Driver Form -->
+<div class="add-form">
+  <input type="text" placeholder="Name" [(ngModel)]="newDriver.name" />
+  <input type="text" placeholder="Phone" [(ngModel)]="newDriver.phone" />
+  <button mat-raised-button color="primary" (click)="addDriver()">Add Driver</button>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="drivers" class="mat-elevation-z8 drivers-table">
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let d">
+      <ng-container *ngIf="editingDriver?.id !== d.id; else editName">
+        {{ d.name }}
+      </ng-container>
+      <ng-template #editName>
+        <ng-container *ngIf="editingDriver as ed">
+          <input [(ngModel)]="ed.name" />
+        </ng-container>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Phone -->
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef>Phone</th>
+    <td mat-cell *matCellDef="let d">
+      <ng-container *ngIf="editingDriver?.id !== d.id; else editPhone">
+        {{ d.phone }}
+      </ng-container>
+      <ng-template #editPhone>
+        <ng-container *ngIf="editingDriver as ed">
+          <input [(ngModel)]="ed.phone" />
+        </ng-container>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let d">
+      <ng-container *ngIf="editingDriver?.id !== d.id">
+        <button mat-stroked-button color="primary" (click)="startEdit(d)">Edit</button>
+        <button mat-stroked-button color="warn" (click)="deleteDriver(d.id)">Delete</button>
+      </ng-container>
+      <ng-container *ngIf="editingDriver?.id === d.id">
+        <button mat-stroked-button color="accent" (click)="saveEdit()">Save</button>
+        <button mat-stroked-button (click)="cancelEdit()">Cancel</button>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+</table>
+
+<!-- Empty State -->
+<p *ngIf="!drivers.length" class="empty-state">No drivers added yet 🚗</p>

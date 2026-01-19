@@ -1,0 +1,351 @@
+/* ===== Page Background ===== */
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 16px;
+  background: linear-gradient(135deg, #e3f2fd, #f9fafe);
+}
+
+/* ===== Title ===== */
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #0d47a1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideDown 0.6s ease;
+}
+
+/* ===== Table ===== */
+.table-wrapper {
+  animation: fadeIn 0.6s ease;
+  overflow-x: auto;
+}
+
+.bookings-table {
+  width: 100%;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.bookings-table th {
+  font-weight: 600;
+  color: #0d47a1;
+}
+
+.table-row {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.table-row:hover {
+  background: #f1f7ff;
+  transform: scale(1.01);
+}
+
+/* ===== Route ===== */
+.route {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.route mat-icon {
+  color: #1976d2;
+}
+
+/* ===== Seat Badge ===== */
+.seat-badge {
+  background: linear-gradient(135deg, #1976d2, #42a5f5);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.25);
+}
+
+/* ===== Cards (Mobile) ===== */
+.cards-wrapper {
+  display: none;
+  gap: 16px;
+  animation: fadeIn 0.6s ease;
+}
+
+.booking-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slideUp 0.5s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ===== Date ===== */
+.date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.date mat-icon {
+  color: #ff9800;
+}
+
+/* ===== Buttons ===== */
+button[mat-raised-button],
+button[mat-stroked-button] {
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ===== Empty State ===== */
+.empty {
+  text-align: center;
+  margin-top: 60px;
+  color: #555;
+  animation: fadeIn 0.8s ease;
+}
+
+.empty mat-icon {
+  font-size: 64px;
+  color: #90caf9;
+  margin-bottom: 10px;
+}
+
+/* ===== Ticket Modal ===== */
+.ticket-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.ticket-card {
+  background: #fff
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23ddd" stroke-width="2" stroke-dasharray="5,5"/></svg>')
+    repeat;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.ticket-title {
+  font-size: 20px;
+  color: #1976d2;
+}
+
+.ticket-id {
+  font-size: 12px;
+  color: #666;
+}
+
+.ticket-body {
+  margin-bottom: 16px;
+}
+
+.ticket-section {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.route-section .route {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.qr-code {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.qr-code img {
+  width: 120px;
+  height: 120px;
+}
+
+.ticket-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+}
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.grid-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.ticket-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .page-title {
+    font-size: 22px;
+  }
+
+  .booking-card {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .cards-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  :host {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+    gap: 6px;
+  }
+
+  .ticket-card {
+    padding: 16px;
+  }
+
+  .qr-code img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ticket-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .ticket-modal {
+    background: none;
+    backdrop-filter: none;
+    position: static;
+    height: auto;
+  }
+
+  .ticket-card {
+    box-shadow: none;
+    border: none;
+    width: 100%;
+    max-width: none;
+    page-break-inside: avoid;
+  }
+
+  .ticket-actions {
+    display: none;
+  }
+
+  /* Hide other page elements */
+  :host ::ng-deep * {
+    visibility: hidden;
+  }
+
+  .ticket-modal,
+  .ticket-modal * {
+    visibility: visible;
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

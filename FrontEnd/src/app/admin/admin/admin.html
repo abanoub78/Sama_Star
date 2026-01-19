@@ -1,0 +1,75 @@
+<mat-sidenav-container class="admin-container" autosize>
+  <!-- Sidebar -->
+  <mat-sidenav #sidenav mode="side" opened class="admin-sidenav" [fixedInViewport]="true">
+    <div class="logo-section">
+      <h2 class="logo">SamaStar</h2>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/admin" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-text">Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/admin/buses" routerLinkActive="active">
+        <mat-icon>directions_bus</mat-icon>
+        <span class="nav-text">Buses</span>
+      </a>
+      <a mat-list-item routerLink="/admin/trips" routerLinkActive="active">
+        <mat-icon>route</mat-icon>
+        <span class="nav-text">Trips</span>
+      </a>
+      <a mat-list-item routerLink="/admin/routes" routerLinkActive="active">
+        <mat-icon>swap_horiz</mat-icon>
+        <span class="nav-text">Routes</span>
+      </a>
+      <a mat-list-item routerLink="/admin/drivers" routerLinkActive="active">
+        <mat-icon>person</mat-icon>
+        <span class="nav-text">Drivers</span>
+      </a>
+      <a mat-list-item routerLink="/admin/bookings" routerLinkActive="active">
+        <mat-icon>book_online</mat-icon>
+        <span class="nav-text">Bookings</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        class="menu-btn"
+        aria-label="Toggle sidebar"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title">Admin Dashboard</span>
+      <span class="spacer"></span>
+
+      <!-- User Dropdown using Angular Material Menu -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <div class="user-menu-header" mat-menu-item disabled>
+          <mat-icon>person</mat-icon>
+          <span>مرحبًا، {{ auth.user?.name || 'ادمن' }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/profile">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>الصفحة الشخصية</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>تسجيل الخروج</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <div class="admin-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

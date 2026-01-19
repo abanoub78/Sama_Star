@@ -1,0 +1,51 @@
+<!-- Ticket Modal -->
+<div class="ticket-modal" *ngIf="selectedBooking">
+  <div class="ticket-card">
+    <h3 class="ticket-title">تذكرة الرحلة</h3>
+
+    <div class="ticket-section">
+      <strong>المسار:</strong>
+      <span>
+        {{ selectedBooking.trip?.route?.to_city?.name || '---' }}
+
+        <mat-icon inline>arrow_right_alt</mat-icon>
+        {{ selectedBooking.trip?.route?.from_city?.name || '---' }}
+      </span>
+    </div>
+
+    <div class="ticket-section" *ngIf="selectedBooking.trip?.bus">
+      <strong>الحافلة:</strong>
+      <span
+        >{{ selectedBooking.trip.bus.bus_number }} ({{ selectedBooking.trip.bus.bus_type }})</span
+      >
+    </div>
+
+    <div class="ticket-section" *ngIf="selectedBooking.seat">
+      <strong>رقم المقعد:</strong>
+      <span>#{{ selectedBooking.seat.seat_number }}</span>
+    </div>
+
+    <div class="ticket-grid">
+      <div class="grid-item">
+        <strong>التاريخ:</strong>
+        <span>{{ selectedBooking.trip?.trip_date | date : 'mediumDate' }}</span>
+      </div>
+      <div class="grid-item">
+        <strong>وقت المغادرة:</strong>
+        <span>{{ selectedBooking.trip?.departure_time || '---' }}</span>
+      </div>
+      <div class="grid-item">
+        <strong>وقت الوصول:</strong>
+        <span>{{ selectedBooking.trip?.arrival_time || '---' }}</span>
+      </div>
+      <div class="grid-item">
+        <strong>السعر:</strong>
+        <span>{{ selectedBooking.trip?.price || '---' }} جنيه</span>
+      </div>
+    </div>
+
+    <div class="ticket-actions">
+      <button mat-raised-button color="primary" (click)="closeTicket()">إغلاق</button>
+    </div>
+  </div>
+</div>

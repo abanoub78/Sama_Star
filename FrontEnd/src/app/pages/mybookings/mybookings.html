@@ -1,0 +1,153 @@
+<h2 class="page-title">🚍 حجوزاتي</h2>
+
+<!-- Desktop Table -->
+<div class="table-wrapper" *ngIf="bookings.length; else emptyState">
+  <table mat-table [dataSource]="bookings" class="mat-elevation-z4 bookings-table">
+    <!-- Route Column -->
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef>المسار</th>
+      <td mat-cell *matCellDef="let b">
+        {{ b.trip?.route?.to_city?.name || '---' }}
+        <mat-icon>arrow_right_alt</mat-icon>
+        {{ b.trip?.route?.from_city?.name || '---' }}
+      </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>التاريخ</th>
+      <td mat-cell *matCellDef="let b">
+        {{ b.trip?.trip_date | date : 'mediumDate' }}
+      </td>
+    </ng-container>
+
+    <!-- Seat Column -->
+    <ng-container matColumnDef="seat">
+      <th mat-header-cell *matHeaderCellDef>رقم المقعد</th>
+      <td mat-cell *matCellDef="let b">
+        {{ b.seat?.seat_number || '---' }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>الإجراءات</th>
+      <td mat-cell *matCellDef="let b">
+        <button mat-button color="warn" (click)="cancelBooking(b.id)">إلغاء الحجز</button>
+        <button mat-button color="primary" (click)="showTicket(b)">عرض التذكرة</button>
+      </td>
+    </ng-container>
+
+    <!-- Header & Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+  </table>
+</div>
+
+<!-- Mobile Cards -->
+<div class="cards-wrapper" *ngIf="bookings.length; else emptyState">
+  <div class="booking-card" *ngFor="let b of bookings">
+    <div class="card-header">
+      <div class="route">
+        {{ b.trip?.route?.to_city?.name || '---' }}
+        <mat-icon>arrow_right_alt</mat-icon>
+        {{ b.trip?.route?.from_city?.name || '---' }}
+      </div>
+      <span class="seat-badge">#{{ b.seat?.seat_number || '---' }}</span>
+    </div>
+    <div class="date">
+      <mat-icon>calendar_today</mat-icon>
+      {{ b.trip?.trip_date | date : 'mediumDate' }}
+    </div>
+    <div class="card-actions">
+      <button mat-stroked-button color="warn" (click)="cancelBooking(b.id)">إلغاء</button>
+      <button mat-raised-button color="primary" (click)="showTicket(b)">عرض التذكرة</button>
+    </div>
+  </div>
+</div>
+
+<!-- Ticket Modal -->
+<div class="ticket-modal" *ngIf="selectedBooking">
+  <div class="ticket-card" id="ticket-content">
+    <div class="ticket-header">
+      <h3 class="ticket-title">تذكرة الرحلة</h3>
+      <span class="ticket-id">رقم الحجز: #{{ selectedBooking.id }}</span>
+    </div>
+
+    <div class="ticket-body">
+      <div class="ticket-section route-section">
+        <strong>المسار:</strong>
+        <span class="route">
+          {{ selectedBooking.trip?.route?.to_city?.name || '---' }}
+          <mat-icon inline>arrow_right_alt</mat-icon>
+          {{ selectedBooking.trip?.route?.from_city?.name || '---' }}
+        </span>
+      </div>
+
+      <div class="ticket-section" *ngIf="selectedBooking.trip?.bus">
+        <strong>الحافلة:</strong>
+        <span
+          >{{ selectedBooking.trip.bus.bus_number }} ({{ selectedBooking.trip.bus.bus_type }})</span
+        >
+      </div>
+
+      <div class="ticket-section">
+        <strong>رقم المقعد:</strong>
+        <span class="seat-badge">#{{ selectedBooking.seat?.seat_number }}</span>
+      </div>
+      <br />
+
+      <div class="ticket-grid">
+        <div class="grid-item">
+          <strong>التاريخ:</strong>
+          <span>{{ selectedBooking.trip?.trip_date | date : 'mediumDate' }}</span>
+        </div>
+        <br />
+        <div class="grid-item">
+          <strong>وقت المغادرة:</strong>
+          <span>{{ selectedBooking.trip?.departure_time || '---' }}</span>
+        </div>
+        <br />
+
+        <div class="grid-item">
+          <strong>وقت الوصول:</strong>
+          <span>{{ selectedBooking.trip?.arrival_time || '---' }}</span>
+        </div>
+        <br />
+
+        <div class="grid-item">
+          <strong>السعر:</strong>
+          <span>{{ selectedBooking.trip?.price || '---' }} جنيه</span>
+        </div>
+      </div>
+
+      <div class="qr-code">
+        <img
+          [src]="
+            'https://api.qrserver.com/v1/create-qr-code/?data=' +
+            getQrData(selectedBooking) +
+            '&size=150x150'
+          "
+          alt="QR Code"
+        />
+      </div>
+    </div>
+
+    <div class="ticket-footer">
+      <p>شكراً لاختياركم خدماتنا. رحلة آمنة!</p>
+    </div>
+
+    <div class="ticket-actions">
+      <button mat-raised-button color="primary" (click)="closeTicket()">إغلاق</button>
+      <button mat-raised-button color="accent" (click)="printTicket()">طباعة التذكرة</button>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State -->
+<ng-template #emptyState>
+  <div class="empty">
+    <mat-icon>directions_bus</mat-icon>
+    <p>لا توجد حجوزات حتى الآن</p>
+  </div>
+</ng-template>

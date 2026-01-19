@@ -1,0 +1,69 @@
+<div class="popup" *ngIf="showPopup" [ngClass]="popupType">
+  {{ popupMessage }}
+</div>
+
+<div class="home-hero">
+  <div class="hero-content">
+    <h1 class="hero-title text-center mb-4">احجز رحلتك مع سما ستار</h1>
+
+    <div class="search-card">
+      <form class="search-form">
+        <div class="form-group">
+          <label>من:</label>
+          <select class="form-select" [(ngModel)]="fromCity" name="fromCity">
+            <option [ngValue]="null" disabled selected>اختر محطة المغادرة</option>
+            <option *ngFor="let city of cities" [ngValue]="city">{{ city.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>إلى:</label>
+          <select class="form-select" [(ngModel)]="toCity" name="toCity" [disabled]="!fromCity">
+            <option [ngValue]="null" disabled selected>اختر محطة الوصول</option>
+            <option *ngFor="let city of filteredToCities" [ngValue]="city">{{ city.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>تاريخ السفر:</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="departureDate"
+            name="departureDate"
+            [min]="today"
+          />
+        </div>
+
+        <div class="form-group" *ngIf="isRoundTrip">
+          <label>تاريخ العودة:</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="returnDate"
+            name="returnDate"
+            [min]="departureDate || today"
+          />
+        </div>
+
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="isRoundTrip"
+            name="roundTrip"
+            (change)="onRoundTripChange()"
+          />
+          <label class="form-check-label">رحلة ذهابًا وإيابًا</label>
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-search" (click)="searchTrips()">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-buspros></app-buspros>
+<app-about></app-about>

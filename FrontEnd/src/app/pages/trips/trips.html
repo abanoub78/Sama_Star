@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h3 class="mb-4 text-center text-primary fw-bold">الرحلات المتاحة</h3>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && trips.length === 0" class="alert alert-warning text-center">
+    لا توجد رحلات متاحة
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let trip of trips">
+      <div class="trip-card">
+        <div class="trip-header p-3 text-white">
+          <h5 class="mb-1">{{ trip.route.to_city.name }} → {{ trip.route.from_city.name }}</h5>
+          <span class="badge bg-warning text-dark">💰 {{ trip.price }} جنيه</span>
+        </div>
+
+        <div class="trip-body p-3">
+          <p>
+            <i class="bi bi-bus-front-fill"></i> <strong>{{ trip.bus.bus_type }}</strong>
+          </p>
+          <p><i class="bi bi-calendar-event-fill"></i> {{ trip.trip_date }}</p>
+          <p><i class="bi bi-clock-fill"></i> المغادرة: {{ trip.departure_time }}</p>
+          <p><i class="bi bi-clock-history"></i> الوصول: {{ trip.arrival_time }}</p>
+
+          <button class="btn btn-primary w-100 mt-3" (click)="goToSeats(trip)">احجز الآن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

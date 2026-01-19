@@ -1,0 +1,138 @@
+:host {
+  display: block;
+  --primary: #1f6fb2;
+  --secondary: #6fb3f2;
+  --dark: #1e293b;
+  --light: #f8fafc;
+}
+
+/* ================= Page Wrapper ================= */
+.about-page {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(to bottom, #f8fafc, #eef4f9);
+  color: var(--dark);
+}
+
+/* ================= Header ================= */
+.page-header {
+  position: relative;
+  padding: 80px 20px 120px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  overflow: hidden;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #f8fafc;
+  clip-path: ellipse(70% 100% at 50% 100%);
+}
+
+.page-header .title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* ================= Hero Image ================= */
+.hero-section {
+  margin-top: -80px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image {
+  width: min(90%, 900px);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.03);
+}
+
+/* ================= About Text ================= */
+.about-text {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.about-text p {
+  font-size: 16px;
+  line-height: 1.9;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+/* ================= Sections ================= */
+.section {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  margin-top: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(var(--primary), var(--secondary));
+}
+
+.section h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.section p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* ================= Animations ================= */
+.section,
+.about-text p,
+.hero-image {
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= Mobile ================= */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 60px 16px 100px;
+  }
+
+  .hero-image {
+    border-radius: 14px;
+  }
+
+  .about-text {
+    margin: 60px auto;
+  }
+}
